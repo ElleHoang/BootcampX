@@ -23,6 +23,7 @@ CREATE TABLE teachers (
 -- completed_at: timestamp when assistance was completed
 -- student_feedback: Feedback about student given by teacher
 -- teacher_feedback: Feedback about teacher given by student
+
 CREATE TABLE assistance_requests (
   id SERIAL PRIMARY KEY NOT NULL,
   assignment_id INTEGER REFERENCES assignments(id) ON DELETE CASCADE,
