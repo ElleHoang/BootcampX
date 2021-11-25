@@ -24,10 +24,16 @@ CREATE TABLE teachers (
 -- student_feedback: Feedback about student given by teacher
 -- teacher_feedback: Feedback about teacher given by student
 
+/******* ALTER TABLE & ADD COLUMN:
+ALTER TABLE table_name
+ADD COLUMN new_column_name data_type constraint;
+*********/
+
 CREATE TABLE assistance_requests (
   id SERIAL PRIMARY KEY NOT NULL,
   assignment_id INTEGER REFERENCES assignments(id) ON DELETE CASCADE,
   student_id INTEGER REFERENCES students(id) ON DELETE CASCADE,
+  teacher_id INTEGER REFERENCES teachers(id) ON DELETE CASCADE,
   created_at TIMESTAMP,
   started_at TIMESTAMP,
   completed_at TIMESTAMP,
