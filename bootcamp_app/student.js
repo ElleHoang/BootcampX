@@ -12,12 +12,16 @@ const pool = new Pool({
 // pool query is function that accepts SQL query as JS string
 // function then returns promise that contains result when query is successful
 pool.query(`
-SELECT id, name, cohort_id
+SELECT students.id as student_id, students.name as name, cohorts.name as cohort
 FROM students
-LIMIT 5;
+JOIN cohorts ON cohorts.id = cohort_id
+WHERE cohorts.name LIKE '%${process.argv[2]}%'
+LIMIT ${process.argv[3] || 5};
 `)
 // same data & SQL query, but when make query from JS app, results come back as JS objects
 .then(res => { // once get executed, dealing with JS objects
-  console.log(res.rows); // result is array of JS objects
+  res.rows.forEach(user => {
+    console.log(`${user.name} has an id of ${user.stduent_id} and was in the ${user.cohort} cohort`);
+  }) // result is array of JS objects
 })
 .catch(err => console.error('query error', err.stack));
